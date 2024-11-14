@@ -4,9 +4,15 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import google.generativeai as genai
 
-# Create your views here.
+import os
+from dotenv import load_dotenv
 
-genai.configure(api_key="AIzaSyBdNNLAMqq95zJ5sj8bAGyDl1sApcVqrzs")
+load_dotenv()
+
+# Create your views here.
+gemini_api_key = os.environ.get('GEMINI_API_KEY')
+
+genai.configure(api_key=gemini_api_key)
 
 
 def ask_gemini(message):
