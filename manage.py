@@ -7,6 +7,10 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_chatapp.settings')
+    
+    # Use the PORT environment variable if available
+    port = os.getenv('PORT', '8000')  # Default to 8000 if PORT is not set
+    
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -15,6 +19,11 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    
+    # Check if the script is running with the runserver command
+    if len(sys.argv) >= 2 and sys.argv[1] == "runserver":
+        sys.argv.append(f"0.0.0.0:{port}")
+    
     execute_from_command_line(sys.argv)
 
 
