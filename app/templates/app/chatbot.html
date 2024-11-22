@@ -92,20 +92,50 @@
 <div class="chat-container">
   <div class="card flex-grow-1">
     <div class="chats">Chat</div>
+    {% if user.is_authenticated %}
+      Welcome {{user.username}} <a href="logout">Logout</a>
+      {% else %}
+      <a href="login">Login</a>
+      <a href="register">Register</a>
+    {% endif %}
     <div class="card-body messages-box">
       
       <ul class="list-unstyled messages-list">
         
-        <li class="message received">
+        {% comment %} <li class="message received">
           <div class="message-text">
             <div class="message-sender">
               <b>AI Chatbot</b>
             </div>
             <div class="message-content">
-              Hi, I am your AI Chatbot, you can ask me anything.
+              Hi {{user.username}} , I am your AI Chatbot, you can ask me anything.
             </div>
           </div>
-        </li>
+        </li> {% endcomment %}
+        {% for chat in Chats %}
+          {% if chat.user == request.user %}
+          <li class="message sent">
+            <div class="message-text">
+              <div class="message-sender">
+                <b>You</b>
+              </div>
+              <div class="message-content">
+                {{chat.message}}
+              </div>
+            </div>
+          </li> 
+          <li class="message sent">
+            <div class="message-text">
+              <div class="message-sender">
+                <b>AI Chatbot</b>
+              </div>
+              <div class="message-content">
+                {{chat.response|escape}}
+              </div>
+            </div>
+          </li> 
+          {% endif %}
+        {% endfor %}
       </ul>
       
     </div>
