@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-!qot32#99-sn57sh_#r)1(!!72a1^8y@hegp_zdddoy8-se9es
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ai-chat-bot-2-dcct.onrender.com']
 
 
 # Application definition
